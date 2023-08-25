@@ -1,0 +1,25 @@
+{%extends 'temp.html'%}
+
+{%block head%} File Upload {%endblock%}
+
+{%block body %}
+<div class="col-md-12">
+
+    <div class="col-md-6">
+    <!--form method="POST" action="{{url_for('upload')}}" enctype = "multipart/form-data" class="row g-3">
+        <div class="col-auto"> 
+            <label for="formFile" class="form-label">Select PDF File</label>
+        </div>
+        <div class="col-md-6 ">            
+            <input class="form-control form-control-user" type="file" id="formFile" name="filename">
+          </div>
+        <div class="col-md-6">
+            <button type="submit" class="btn btn-primary mb-3">Upload</button>
+        </div>
+    </form-->
+    
+    <form action="{{url_for('upload')}}" class="dropzone"></form>
+</div>
+</div>
+
+{% endblock%}
