@@ -1,0 +1,123 @@
+{%extends 'temp.html'%}
+
+{%block head%} ChatBot using OpenAI {%endblock%}
+
+{%block body %}
+
+    <style>
+      /*body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .chat-container {
+        background-color: #ffffff;
+        border-radius: 5px;
+        padding: 20px;
+        width: 80%;
+        max-width: 600px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }*/
+
+      #chat-form {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      #user-input {
+        flex-grow: 1;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+      }
+
+      #submitBtn {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        margin-left: 10px;
+        cursor: pointer;
+      }
+
+      #submitBtn:hover {
+        background-color: #45a049;
+      }
+
+      #result {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 20px;
+        background-color: #f8f8f8;
+        min-height: 100px;
+        overflow-wrap: break-word;
+      }
+    </style>
+<div class="col-md-12">
+    <div class="chat-container">
+      <!--h1>ChatBot </h1 -->
+      <br>
+      <div id="result"></div>
+      <br>
+      <div class="spinner-border text-warning" role="status" id="loading">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <form id="chat-form">
+        <input
+          type="text"
+          id="user-input"
+          name="user_input"
+          placeholder="Type your message..."
+        />
+        <button type="submit" id="submitBtn">Send</button>
+      </form>
+    </div>
+</div>
+    <script>
+     window.onload = function () {
+        $("#loading").toggle()
+         document
+          .getElementById("chat-form")
+          .addEventListener("submit", function (event) {
+            // Prevent the form from submitting and refreshing the page
+            event.preventDefault();
+            $("#loading").toggle()
+
+            let userInput = document.getElementById("user-input").value;
+            document.getElementById('result').innerHTML +='<p class="userText text-primary row"><span  style="float:right">' + userInput + "</span></p>";
+            let url = `azure?user_input=${encodeURIComponent(userInput)}&type=azure`;
+
+            fetch(url)
+              .then((response) => response.json())
+              .then((data) => {
+                console.log(data);
+                let content = data.content+ "<br>";//" <b> Source details:</b><br><i>"+data.content.source+"</i>";
+                let resultDiv = document.getElementById("result");
+                resultDiv.innerHTML += '<p class="botText col-md-12"><span>' + content + "</span></p>";
+                $("#loading").toggle()
+              })
+              .catch((error) => {
+                console.error("Error fetching GPT-4 response:", error);
+              });
+              return false;
+          });
+          $("#show_button").click(function(){
+          //alert("Hello");
+            $("#show_recent").toggle();
+      });
+      
+      };
+    </script>
+{% endblock%}
