@@ -1,0 +1,11 @@
+flask
+langchain
+PyPDF2
+openai
+huggingface_hub
+transformers
+InstructorEmbedding
+torch
+tiktoken
+sentence-transformers
+faiss-cpu
