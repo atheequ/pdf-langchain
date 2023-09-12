@@ -14,6 +14,10 @@ from langchain.chains import RetrievalQA
 
 app=Flask(__name__)
 
+@app.route("/")
+def home():
+    return "Welcome to my page"
+''''    
 @app.route("/extract",methods=["GET","POST"])
 def extract():
     if(request.method=="POST"):
@@ -69,7 +73,7 @@ def extract():
 
     res=qa_chain(question)
     return jsonify(answer=res['result'])
-
+'''
 
 if(__name__=="__main__"):
    app.run()
